@@ -37,9 +37,9 @@
 clear all 
 clc
 
-Universes_no=60; %Number of search agents (universes)
+Universes_no=30; %Number of search agents (universes)
 
-Function_name='F2'; %Name of the test function that can be from F1 to F23 (Table 1,2,3 in the paper)
+Function_name='F4'; %Name of the test function that can be from F1 to F23 (Table 1,2,3 in the paper)
 SD=[];
 SW=[];
 rankSumAll=[];
@@ -52,60 +52,21 @@ for i=1:10
     
     [Best_score,Best_pos,cg_curve]=MVO(Universes_no,Max_iteration,lb,ub,dim,fobj);
     SD=[SD Best_score];
-%     if i==1
-%         SW=Best_pos;
-%     else
-%     SW=cat(1,SW,Best_pos);
-%     end
-%     SW=[SW Best_pos];
     [MVO_old_Best_score,MVO_old_Best_pos,MVO_old_cg_curve]=MVO_old(Universes_no,Max_iteration,lb,ub,dim,fobj);
     SW=[SW MVO_old_Best_score];
-%     if i==1
-%     SW=MVO_old_Best_pos;
-%     else
-%     SW=cat(1,SW,MVO_old_Best_pos);
-%     end
+
 end
     display(['The AVE/G is : ', num2str(mean(SD))]);
     standard_1=std(SD,0);
-    display(['The SD by MVO is : ', num2str(standard_1)]);
+    display(['The SD by KMVO is : ', num2str(standard_1)]);
     display(['the shoulianquxian1is ',num2str(cg_curve)]);
-% if standard_1<177.09
-%     break;
-% end
-% end
-%  standard_1=std(SD,0);
-% display(['The SD by MVO is : ', num2str(standard_1)]);
-% display(['The AVE/G is : ', num2str(mean(SD))]);
-% display(['The MAx is : ', num2str(max(SD))]);
-% display(['The Min is : ', num2str(min(SD))]);
-% display(['The details is : ', num2str(SD)]);
-% if(standard_1<2.5)
-%     break;
-% end
-% end
+
 standard_2=std(SW,0);
 display(['The SD by MVO is : ', num2str(standard_2)]);
 display(['The AVE/G is : ', num2str(mean(SW))]);
 display(['The MAx is : ', num2str(max(SW))]);
 display(['The Min is : ', num2str(min(SW))]);
 display(['The details is : ', num2str(SW)]);
-%display(['The SW by MVO is : ', num2str(SW)]);
-% for i=1:100
-% k1 = randperm(30);
-% ranksum1=ranksum(SW(k1(1),:),SW(k1(2),:));
-% rankSumAll=[rankSumAll ranksum1];
-% 
-% end
-% for i=1:10
-%     for j=i+1:10
-%     ranksum1=ranksum(SW(i,:),SW(j,:));
-%     rankSumAll=[rankSumAll ranksum1];
-%     end
-% end
-% display(['The MAx is : ', num2str(max(rankSumAll))]);
-% display(['The Min is : ', num2str(min(rankSumAll))]);
-% display(['The mean is : ', num2str(mean(rankSumAll))]);
 figure('Position',[290   206   648   287])
 
 %Draw the search space
